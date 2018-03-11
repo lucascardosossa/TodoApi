@@ -24,6 +24,7 @@ namespace TodoApi.Controllers
         [HttpGet]
         public IEnumerable<Project> Get()
         {
+            //ResultProject result = new ResultProject() { Results = _repository.GetAll() };
             return _repository.GetAll();
         }
 
@@ -31,7 +32,14 @@ namespace TodoApi.Controllers
         [HttpGet("{id}")]
         public Project Get(int id)
         {
-            return _repository.GetById(id);
+           return  _repository.GetById(id);
+        }
+
+        //GET api/project/
+        [HttpGet("byName/{name}")]
+        public IEnumerable<Project> Get(string name)
+        {
+            return _repository.GetByName(name);
         }
 
         // POST api/values

@@ -9,7 +9,7 @@ namespace TodoApi.Repositories
 {
     public class RepositoryBase<TEntity> : IDisposable, IRepositoryBase<TEntity> where TEntity : class
     {
-        private readonly TodoApiContext _db;
+        protected readonly TodoApiContext _db;
 
         public RepositoryBase(TodoApiContext db)
         {
