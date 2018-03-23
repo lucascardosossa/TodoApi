@@ -16,10 +16,10 @@ namespace TodoApi.Repositories
             _db = db;
         }
 
-        public void Add(TEntity obj)
+        public bool Add(TEntity obj)
         {
             _db.Set<TEntity>().Add(obj);
-            _db.SaveChanges();
+            return _db.SaveChanges() > 0;
         }
 
         public void Dispose()

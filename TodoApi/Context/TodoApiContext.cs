@@ -11,5 +11,10 @@ namespace TodoApi.Context
         }
 
         public DbSet<Project> Project { get; set; }
+        public DbSet<Todo> Todo
+        {
+            get;
+            set;
+        }
     }
 }

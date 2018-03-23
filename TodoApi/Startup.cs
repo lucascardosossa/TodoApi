@@ -36,6 +36,7 @@ namespace TodoApi
             services.AddMvc();
 
             services.AddScoped<IProjectRepository, ProjectRepository>();
+            services.AddScoped<ITodoRepository, TodoRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

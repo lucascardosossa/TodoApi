@@ -3,48 +3,51 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using TodoApi.Entities;
 using TodoApi.Repositories.Interfaces;
+using TodoApi.Entities;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace TodoApi.Controllers
 {
     [Route("api/[controller]")]
-    public class ProjectController : Controller
+    public class TodoController : Controller
     {
-        protected readonly IProjectRepository _repository;
+        protected readonly ITodoRepository _repository;
 
-        public ProjectController(IProjectRepository repository)
+        public TodoController(ITodoRepository repository)
         {
             _repository = repository;
         }
-
         // GET: api/values
         [HttpGet]
-        public IEnumerable<Project> Get()
+        public IEnumerable<Todo> Get()
         {
             return _repository.GetAll();
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public Project Get(int id)
+        public string Get(int id)
         {
-           return  _repository.GetById(id);
-        }
-
-        //GET api/project/
-        [HttpGet("byName/{name}")]
-        public IEnumerable<Project> Get(string name)
-        {
-            return _repository.GetByName(name);
+            return "value";
         }
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public Response Post([FromBody]Todo todo)
         {
+            Response response = new Response();
+            try
+            {
+                response.Success = _repository.Add(todo);
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Error.Add(ex.ToString());
+            }
+            return response;
         }
 
         // PUT api/values/5

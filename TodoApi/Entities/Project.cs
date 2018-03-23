@@ -3,7 +3,7 @@ namespace TodoApi.Entities
 {
     public class Project
     {
-        public int Id
+        public int ProjectId
         {
             get;
             set;

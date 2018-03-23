@@ -5,7 +5,7 @@ namespace TodoApi.Repositories.Interfaces
 {
     public interface IRepositoryBase<TEntity> where TEntity : class
     {
-        void Add(TEntity obj);
+        bool Add(TEntity obj);
 
         TEntity GetById(int id);
 
