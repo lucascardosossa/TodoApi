@@ -5,13 +5,20 @@ namespace TodoApi.Entities
 {
     public class Response
     {
+        public Response()
+        {
+            Success = false;
+            Data = new JsonObject("");
+            Error = new List<string>();
+        }
+
         public bool Success
         {
             get;
             set;
         }
 
-        public List<string> Data
+        public JsonObject Data
         {
             get;
             set;

@@ -11,9 +11,9 @@ namespace TodoApi.Repositories.Interfaces
 
         IEnumerable<TEntity> GetAll();
 
-        void Update(TEntity obj);
+        bool Update(TEntity obj);
 
-        void Remove(TEntity obj);
+        bool Remove(TEntity obj);
 
         void Dispose();
 

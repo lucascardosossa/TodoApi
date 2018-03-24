@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TodoApi.Repositories.Interfaces;
 using TodoApi.Entities;
+using Newtonsoft.Json;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,52 +15,88 @@ namespace TodoApi.Controllers
     public class TodoController : Controller
     {
         protected readonly ITodoRepository _repository;
+        private Response _response;
 
         public TodoController(ITodoRepository repository)
         {
             _repository = repository;
+            _response = new Response();
         }
-        // GET: api/values
+
         [HttpGet]
-        public IEnumerable<Todo> Get()
+        public Response Get()
         {
-            return _repository.GetAll();
-        }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/values
-        [HttpPost]
-        public Response Post([FromBody]Todo todo)
-        {
-            Response response = new Response();
             try
             {
-                response.Success = _repository.Add(todo);
+                _response.Success = true;
+                _response.Data.Json = JsonConvert.SerializeObject(_repository.GetAll());
             }
             catch (Exception ex)
             {
-                response.Success = false;
-                response.Error.Add(ex.ToString());
+                _response.Error.Add(ex.Message.ToString());
             }
-            return response;
+            return _response;
         }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        [HttpGet("{id}")]
+        public Response Get(int id)
         {
+            try
+            {
+                _response.Success = true;
+                _response.Data.Json = JsonConvert.SerializeObject(_repository.GetById(id));
+            }
+            catch (Exception ex)
+            {
+                _response.Error.Add(ex.Message.ToString());
+            }
+            return _response;
+
         }
 
-        // DELETE api/values/5
+        [HttpPost]
+        public Response Post([FromBody]Todo todo)
+        {
+            
+            try
+            {
+                _response.Success = _repository.Add(todo);
+            }
+            catch (Exception ex)
+            {
+                _response.Error.Add(ex.ToString());
+            }
+            return _response;
+        }
+
+        [HttpPut]
+        public Response Put([FromBody]Todo todo)
+        {
+            try
+            {
+                _response.Success = _repository.Update(todo);
+            }
+            catch (Exception ex)
+            {
+                _response.Error.Add(ex.Message.ToString());
+            }
+            return _response;
+        }
+
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public Response Delete(int id)
         {
+            try
+            {
+                var todo = _repository.GetById(id);
+                _response.Success = _repository.Remove(todo);
+            }
+            catch (Exception ex)
+            {
+                _response.Error.Add(ex.Message.ToString());
+            }
+            return _response;
         }
+
     }
 }

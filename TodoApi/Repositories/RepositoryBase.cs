@@ -37,16 +37,16 @@ namespace TodoApi.Repositories
             return _db.Set<TEntity>().Find(id);
         }
 
-        public void Remove(TEntity obj)
+        public bool Remove(TEntity obj)
         {
             _db.Set<TEntity>().Remove(obj);
-            _db.SaveChanges();
+            return  _db.SaveChanges() > 0;
         }
 
-        public void Update(TEntity obj)
+        public bool Update(TEntity obj)
         {
             _db.Entry(obj).State = EntityState.Modified;
-            _db.SaveChanges();
+            return _db.SaveChanges() > 0;
 
         }
     }
