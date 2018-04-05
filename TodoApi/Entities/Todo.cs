@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace TodoApi.Entities
 {
     public class Todo
@@ -34,6 +36,7 @@ namespace TodoApi.Entities
             set;
         }
 
+        [ForeignKey("ProjectId")]
         public Project Project
         {
             get;

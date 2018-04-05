@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace TodoApi.Entities
 {
     public class Project
@@ -9,6 +11,12 @@ namespace TodoApi.Entities
             set;
         }
         public string Name
+        {
+            get;
+            set;
+        }
+
+        public List<Todo> Todos
         {
             get;
             set;

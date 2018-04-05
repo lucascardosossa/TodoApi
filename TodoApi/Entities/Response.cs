@@ -8,7 +8,7 @@ namespace TodoApi.Entities
         public Response()
         {
             Success = false;
-            Data = new JsonObject("");
+            Data = null;
             Error = new List<string>();
         }
 
@@ -18,7 +18,7 @@ namespace TodoApi.Entities
             set;
         }
 
-        public JsonObject Data
+        public object Data
         {
             get;
             set;

@@ -29,7 +29,7 @@ namespace TodoApi.Controllers
             try
             {
                 _response.Success = true;
-                _response.Data.Json = JsonConvert.SerializeObject(_repository.GetAll());
+                _response.Data = _repository.GetAll();
             }
             catch (Exception ex)
             {
@@ -44,7 +44,7 @@ namespace TodoApi.Controllers
             try
             {
                 _response.Success = true;
-                _response.Data.Json = JsonConvert.SerializeObject(_repository.GetById(id));
+                _response.Data = _repository.GetById(id);
             }
             catch (Exception ex)
             {
