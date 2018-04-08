@@ -27,7 +27,15 @@ namespace TodoApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
+
             var connection = Configuration["ConexaoMySql:MySqlConnectionString"];
             services.AddDbContext<TodoApiContext>(options =>
                 options.UseMySql(connection)
@@ -46,9 +54,7 @@ namespace TodoApi
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseCors(
-                options => options.WithOrigins("http://localhost:8080").AllowAnyMethod()
-            );
+            app.UseCors("CorsPolicy");
             app.UseMvc();
         }
     }

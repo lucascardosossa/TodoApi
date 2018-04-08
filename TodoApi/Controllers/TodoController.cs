@@ -63,7 +63,7 @@ namespace TodoApi.Controllers
                 _response.Success = _repository.Add(todo);
             }
             catch (Exception ex)
-            {
+                {
                 _response.Error.Add(ex.ToString());
             }
             return _response;

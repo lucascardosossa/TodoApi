@@ -15,11 +15,5 @@ namespace TodoApi.Entities
             get;
             set;
         }
-
-        public List<Todo> Todos
-        {
-            get;
-            set;
-        }
     }
 }
